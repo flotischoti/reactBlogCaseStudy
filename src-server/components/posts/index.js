@@ -11,14 +11,25 @@ module.exports = (app) => {
   };
 
   // Get all
-  module.get = async () => db.query('select p.*, u.email as author from posts p left join users u ON p.user_id=u.id');
+  module.get = async () =>
+    db.query(
+      'select p.*, u.email as author from posts p left join users u ON p.user_id=u.id'
+    );
 
   // Get one
-  module.getOne = async (id) => db.query(
-    'select p.*, u.email as author from posts p left join users u ON p.user_id=u.id where p.id=$1',
-    [id],
-    { single: true }
-  );
+  module.getOne = async (id) =>
+    db.query(
+      'select p.*, u.email as author from posts p left join users u ON p.user_id=u.id where p.id=$1',
+      [id],
+      { single: true }
+    );
+
+  // Get by FullTextSearch (currently ID, Author)
+  module.search = async (search) =>
+    db.query(
+      'select p.*, u.email as author from posts p left join users u ON p.user_id=u.id where p.id::varchar=$1 or u.email ilike $2',
+      [search, `%${search}%`]
+    );
 
   // Update
   module.update = async (id, row) => {

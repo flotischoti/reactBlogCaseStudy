@@ -9,13 +9,21 @@ module.exports = (app) => {
 
   // Create
   router.post('/', auth.authenticate, async (req, res) => {
-    const data = await posts.create(req.user, _.pick(req.body, 'content', 'title'));
+    const data = await posts.create(
+      req.user,
+      _.pick(req.body, 'content', 'title')
+    );
     res.json(data);
   });
 
   // Get all
   router.get('/', auth.authenticate, async (req, res) => {
-    const data = await posts.get();
+    let data;
+    if (req.query.search) {
+      data = await posts.search(req.query.search);
+    } else {
+      data = await posts.get();
+    }
     res.json(data);
   });
 
@@ -27,7 +35,10 @@ module.exports = (app) => {
 
   // Update
   router.put('/:id(\\d+)', auth.authenticate, async (req, res) => {
-    const data = await posts.update(req.params.id, _.pick(req.body, 'content', 'title'));
+    const data = await posts.update(
+      req.params.id,
+      _.pick(req.body, 'content', 'title')
+    );
     res.json(data);
   });
 

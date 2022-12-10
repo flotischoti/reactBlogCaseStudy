@@ -39,11 +39,12 @@ class PostTable extends React.Component {
     const vm = this;
     const targetValue = event.target.value;
     this.setState({ filter: event.target.value }, () => {
-      if (targetValue) vm.getByID();
+      if (targetValue) vm.getBySearch();
       else vm.fetchPosts();
     });
   }
 
+  // Not in use. Replaced by fulltext search
   getByID() {
     const { filter } = this.state;
     console.log(filter);
@@ -54,6 +55,15 @@ class PostTable extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  getBySearch() {
+    const { filter } = this.state;
+    API.get('/api/posts', { params: { search: filter } }).then((res) => {
+      if (res.data) this.setState({ posts: Array.isArray(res.data) ? res.data : [res.data] });
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   fetchPosts() {
