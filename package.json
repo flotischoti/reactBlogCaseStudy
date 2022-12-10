@@ -87,7 +87,7 @@
   "scripts": {
     "start": "npm run server:prod",
     "build": "node scripts/build.js && npm run lint",
-    "lint": "eslint 'src-client/**/*.{js,jsx}' 'src-server/**/*.js'",
+    "lint": "eslint \"src-client/**/*.{js,jsx}\" \"src-server/**/*.js\"",
     "seed": "npm run db:seed",
     "client:dev": "node scripts/start-client-dev.js",
     "server:dev": "nodemon --watch src-server scripts/start-server-dev.js",
@@ -180,7 +180,8 @@
         {
           "props": false
         }
-      ]
+      ],
+      "implicit-arrow-linebreak": ["off"]
     }
   },
   "proxy": "http://localhost:5000",
