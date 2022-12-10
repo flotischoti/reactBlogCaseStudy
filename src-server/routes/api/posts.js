@@ -11,7 +11,7 @@ module.exports = (app) => {
   router.post('/', auth.authenticate, async (req, res) => {
     const data = await posts.create(
       req.user,
-      _.pick(req.body, 'content', 'title')
+      _.pick(req.body, 'content', 'title', 'published')
     );
     res.json(data);
   });
@@ -37,7 +37,7 @@ module.exports = (app) => {
   router.put('/:id(\\d+)', auth.authenticate, async (req, res) => {
     const data = await posts.update(
       req.params.id,
-      _.pick(req.body, 'content', 'title')
+      _.pick(req.body, 'content', 'title', 'published')
     );
     res.json(data);
   });

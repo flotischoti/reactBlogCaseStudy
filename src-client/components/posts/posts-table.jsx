@@ -90,6 +90,9 @@ class PostTable extends React.Component {
           {item.author}
         </td>
         <td>
+          <input type="checkbox" checked={item.published} disabled />
+        </td>
+        <td>
           {item.content}
         </td>
         <td>
@@ -127,6 +130,9 @@ class PostTable extends React.Component {
                 </th>
                 <th scope="col">
                   Author
+                </th>
+                <th scope="col">
+                  Published
                 </th>
                 <th scope="col">
                   Content

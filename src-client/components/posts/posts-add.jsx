@@ -5,7 +5,7 @@ import API from '../../api/api';
 
 class PostAdd extends React.Component {
   constructor(props) {
-    const obj1 = { title: '', content: '' };
+    const obj1 = { title: '', content: '', published: false };
 
     super(props);
     this.state = { post: obj1, editMode: false };
@@ -42,7 +42,7 @@ class PostAdd extends React.Component {
 
   handleChange(event) {
     const { post } = this.state;
-    post[event.target.id] = event.target.value;
+    post[event.target.id] = event.target.id === 'published' ? !post[event.target.id] : event.target.value;
     this.setState({ post });
   }
 
@@ -80,6 +80,13 @@ class PostAdd extends React.Component {
                 Content
               </label>
               <textarea className="form-control" id="content" placeholder="content" onChange={this.handleChange} value={post.content} />
+            </div>
+
+            <div>
+              <label>
+                <input type="checkbox" checked={post.published} onChange={this.handleChange} id="published" />
+                &nbsp;Published
+              </label>
             </div>
 
             <div className="btn-group" role="group" aria-label="">
