@@ -31,6 +31,10 @@ module.exports = (app) => {
       [search, `%${search}%`]
     );
 
+  // Get post summary
+  module.getSummary = async () =>
+    db.query('select p.title, count(p.title) from posts p group by p.title');
+
   // Update
   module.update = async (id, row) => {
     if (!Number(id)) throw new Error('No id given');

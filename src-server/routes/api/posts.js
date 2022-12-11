@@ -27,6 +27,12 @@ module.exports = (app) => {
     res.json(data);
   });
 
+  // Get post summary
+  router.get('/post-summaries', auth.authenticate, async (req, res) => {
+    const data = await posts.getSummary();
+    res.json(data);
+  });
+
   // Get one
   router.get('/:id(\\d+)', auth.authenticate, async (req, res) => {
     const data = await posts.getOne(req.params.id);

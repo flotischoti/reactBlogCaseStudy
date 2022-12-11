@@ -26,8 +26,14 @@ module.exports = async () => {
   // Enable CORS
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+    res.header(
+      'Access-Control-Allow-Methods',
+      'PUT, POST, GET, DELETE, OPTIONS'
+    );
     next();
   });
 
@@ -53,8 +59,11 @@ module.exports = async () => {
   app.use((err, req, res) => {
     // send the error response
     res.status(err.status || 500);
-    if (err.status === 401) res.send('<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=/auth"></head></html>');
-    else res.send(err.message);
+    if (err.status === 401) {
+      res.send(
+        '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=/auth"></head></html>'
+      );
+    } else res.send(err.message);
   });
 
   return app;
